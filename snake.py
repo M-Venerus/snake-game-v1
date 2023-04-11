@@ -2,6 +2,11 @@ from turtle import Turtle
 
 STARTING_POSITIONS = [(0, 0), (-20, 0),  (-40, 0)]
 MOVE_DISTANCE = 20
+UP = 90
+DOWN = 270
+LEFT = 180
+RIGHT = 0
+
 # Using constants (above) instead of coding these variables right into
 # the class so that it is easier to tweak the game later just from here.
 
@@ -9,7 +14,7 @@ class Snake:
     def __init__(self):
         self.segments = []
         self.create_snake()
-        self.head = self.segnments[0]
+        self.head = self.segments[0]
         
     def create_snake(self):    
         for position in STARTING_POSITIONS:
@@ -27,13 +32,17 @@ class Snake:
         self.head.forward(MOVE_DISTANCE)
 
     def up(self):
-        self.head.setheading(90)
+        if self.head.heading() != DOWN:
+            self.head.setheading(UP)
 
     def down(self):
-        self.head.setheading(270)
+        if self.head.heading() != UP:
+            self.head.setheading(DOWN)
 
     def left(self):
-        self.head.setheading(180)
+        if self.head.heading() != RIGHT:
+            self.head.setheading(LEFT)
 
     def right(self):
-        self.head.setheading(0)
+        if self.head.heading() != LEFT:
+            self.head.setheading(RIGHT)
