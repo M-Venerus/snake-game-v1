@@ -20,24 +20,25 @@ screen.onkey(snake.down, "Down")
 screen.onkey(snake.left, "Left")
 screen.onkey(snake.right, "Right")
 
+game_speed = 0.2
 game_is_on = True
 while game_is_on:
     screen.update()
-    time.sleep(0.2)
+    time.sleep(game_speed)
     snake.move()
 
     if snake.head.distance(food) < 16:
         food.refresh()
         scoreboard.update_score()
         snake.extend()
+        game_speed *= 0.9
 
     if snake.head.xcor() > 285 or snake.head.xcor() < -285 or snake.head.ycor() > 285 or snake.head.ycor() < -285:
         game_is_on = False
         
-    for segment in snake.segments:
-        if segment != snake.segments[0]:
-            if segment.position() == snake.head.position():
-                game_is_on = False
+    for segment in snake.segments[1:]:
+        if snake.head.distance(segment) < 10:
+            game_is_on = False
         
 scoreboard.final_score()
         
